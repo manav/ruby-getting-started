@@ -14,7 +14,7 @@ jobs:
   build:
     env:
       NOW: $(date +'%Y.%m.%d.%H%M%S')
-      TAG_NAME: RC-$NOW"
+      TAG_NAME: RC-${{NOW}}"
     # env: 
     #   HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
     runs-on: ubuntu-latest
@@ -27,7 +27,7 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            const tag = "$TAG_NAME";
+            const tag = "${{TAG_NAME}}";
             const message = `Bot - ${tag}`;
             const createTagResponse = await github.rest.git.createTag({
               ...context.repo,
@@ -54,7 +54,7 @@ jobs:
             })
       - name: Deploy Release Candidate
           #run: heroku login
-        run: git push -f https://git.heroku.com/murmuring-lake-14134.git "$TAG_NAME"^{}:master
+        run: git push -f https://git.heroku.com/murmuring-lake-14134.git "${{TAG_NAME}}"^{}:master
           
       # get output for git ref
       # - name: Login to Heroku
