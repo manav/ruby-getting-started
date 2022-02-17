@@ -21,6 +21,7 @@ jobs:
         uses: softprops/action-gh-release@v0.1.14
         with:
           #body_path: ${{ github.workspace }}-CHANGELOG.txt
+          body: test release process
           draft: true
           prerelease: true
           #repository: # optional
