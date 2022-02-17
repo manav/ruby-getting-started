@@ -57,8 +57,8 @@ jobs:
         env:
           TAG_NAME: "RC-${{ env.NOW }}"      
 
-          #run: heroku login
-        run: git push -f https://git.heroku.com/murmuring-lake-14134.git ${{ env.TAG_NAME }}^{}:master
+        #run: heroku login
+        #run: git push -f https://git.heroku.com/murmuring-lake-14134.git ${{ env.TAG_NAME }}^{}:master
           
       # get output for git ref
       # - name: Login to Heroku
