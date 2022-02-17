@@ -50,7 +50,7 @@ jobs:
               name: 'Scheduled ' + tag,
               body: releaseNotesResponse.data.body,
               draft: true
-            });       
+            })
       - name: Deploy Release Candidate
           #run: heroku login
           run: git push -f https://git.heroku.com/murmuring-lake-14134.git tag:master
