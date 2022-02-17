@@ -51,7 +51,7 @@ jobs:
               tag_name: tag,
               name: 'Scheduled ' + tag,
               body: releaseNotesResponse.data.body,
-              draft: true
+              draft: false
             })
       - name: Deploy Release Candidate
         env:
