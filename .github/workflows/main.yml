@@ -29,7 +29,7 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            const tag = "${{ env.TAG_NAME }}";
+            const tag = "$TAG_NAME";
             const message = `Bot - ${tag}`;
             const createTagResponse = await github.rest.git.createTag({
               ...context.repo,
