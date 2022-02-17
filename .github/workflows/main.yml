@@ -53,7 +53,7 @@ jobs:
             })
       - name: Deploy Release Candidate
           #run: heroku login
-        run: git push -f https://git.heroku.com/murmuring-lake-14134.git `${tag}`:master
+        run: git push -f https://git.heroku.com/murmuring-lake-14134.git RC-${{ env.NOW }}:master
           
       # get output for git ref
       # - name: Login to Heroku
