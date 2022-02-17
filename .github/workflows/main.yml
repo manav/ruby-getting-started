@@ -18,6 +18,7 @@ jobs:
     steps:
       - name: set env
         run: echo "NOW=$(date +'%Y.%m.%d.%H%M%S')" >> $GITHUB_ENV
+        run: echo "TAG_NAME=RC-${{ env.NOW }}" >> $GITHUB_ENV
       - name: Checkout
         uses: actions/checkout@v2
         with:
@@ -26,7 +27,7 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            const tag = "RC-${{ env.NOW }}";
+            const tag = "${{ env.TAG_NAME }}";
             const message = `Bot - ${tag}`;
             const createTagResponse = await github.rest.git.createTag({
               ...context.repo,
@@ -53,7 +54,7 @@ jobs:
             })
       - name: Deploy Release Candidate
           #run: heroku login
-        run: git push -f https://git.heroku.com/murmuring-lake-14134.git RC-${{ env.NOW }}:master
+        run: git push -f https://git.heroku.com/murmuring-lake-14134.git "${{ env.TAG_NAME }}"^{}:master
           
       # get output for git ref
       # - name: Login to Heroku
