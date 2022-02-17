@@ -17,9 +17,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: set env
-        run: |
-          echo "NOW=$(date +'%Y.%m.%d.%H%M%S')" >> $GITHUB_ENV
-          echo "TAG_NAME=RC-$NOW" >> $GITHUB_ENV
+          env: |
+            NOW: $(date +'%Y.%m.%d.%H%M%S')
+            TAG_NAME: RC-$NOW"
 
       - name: Checkout
         uses: actions/checkout@v2
@@ -56,7 +56,7 @@ jobs:
             })
       - name: Deploy Release Candidate
           #run: heroku login
-        run: git push -f https://git.heroku.com/murmuring-lake-14134.git "${{ env.TAG_NAME }}"^{}:master
+        run: git push -f https://git.heroku.com/murmuring-lake-14134.git "$TAG_NAME"^{}:master
           
       # get output for git ref
       # - name: Login to Heroku
