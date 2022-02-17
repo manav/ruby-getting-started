@@ -14,7 +14,7 @@ jobs:
   build:
     env:
       NOW: $(date +'%Y.%m.%d.%H%M%S')
-      TAG_NAME: "RC-${{env.NOW}}"
+      TAG_NAME: "RC-${{ env.NOW }}"
     # env: 
     #   HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
     runs-on: ubuntu-latest
@@ -54,7 +54,7 @@ jobs:
             })
       - name: Deploy Release Candidate
           #run: heroku login
-        run: git push -f https://git.heroku.com/murmuring-lake-14134.git "${{env.TAG_NAME}}"^{}:master
+        run: git push -f https://git.heroku.com/murmuring-lake-14134.git "${{ env.TAG_NAME }}"^{}:master
           
       # get output for git ref
       # - name: Login to Heroku
