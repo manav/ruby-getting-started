@@ -25,12 +25,21 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
+            tagResult = github.rest.git.createTag({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              tag: RC-${{ env.NOW }},
+              message: 'RC',
+              object: context.sha,
+              type: 'commit',
+            })
             github.rest.git.createRef({
               owner: context.repo.owner,
               repo: context.repo.repo,
               ref: 'refs/tags/RC-${{ env.NOW }}',
-              sha: context.sha
-            })          
+              sha: tagResult.data.sha
+            });
+        
       - name: Create Release Candidate
         uses: softprops/action-gh-release@v0.1.14
         with:
@@ -48,3 +57,20 @@ jobs:
       #   run: git push -f https://heroku:${{ secrets.HEROKU_API_KEY }}@git.heroku.com/trada-dev1.git origin/master:master
 
         
+      # await github.rest.repos.createRelease({
+      #   owner: context.repo.owner,
+      #   tag_name: env.VERSION_NAME,
+      #   name: env.VERSION_NAME,
+      #   generate_release_notes: true
+      # });
+
+      # github.rest.git.createRef({
+      #   owner: context.repo.owner,
+      #   repo: context.repo.repo,
+      #   ref: 'refs/tags/RC-${{ env.NOW }}',
+      #   sha: context.sha
+      # })
+      # tagger: {
+      #           name: "Eritque arcus",
+      #            email: "1930893235@qq.com"
+      #          }
