@@ -56,7 +56,7 @@ jobs:
       - name: Deploy Release Candidate
         env:
           TAG_NAME: "RC-${{ env.NOW }}"      
-        run echo "Done"
+        run: echo "Done"
         #run: heroku login
         #run: git push -f https://git.heroku.com/murmuring-lake-14134.git ${{ env.TAG_NAME }}^{}:master
           
