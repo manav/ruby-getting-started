@@ -15,18 +15,34 @@ jobs:
     #   HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
     runs-on: ubuntu-latest
     steps:
+      - name: set env
+        run: echo "NOW=$(date +'%Y.%m.%d.%H%M%S')" >> $GITHUB_ENV
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Create Release Candidate
-        uses: softprops/action-gh-release@v0.1.14
-        if: startsWith(github.ref, 'refs/tags/')
-        # with:
-        #   #body_path: ${{ github.workspace }}-CHANGELOG.txt
-        #   body: test release process
-        #   draft: true
-        #   prerelease: true
-        #   #repository: # optional
-        #   generate_release_notes: true
+        with:
+          ref: 'master'
+      - name: Create tag
+        uses: actions/github-script@v5
+        with:
+          script: |
+            github.rest.git.createRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: 'refs/tags/RC-"${{ env.NOW }}"',
+              sha: context.sha
+            })          
+      # - name: Create Release Candidate
+      #   uses: softprops/action-gh-release@v0.1.14
+
+      #   automatic_release_tag: "${{ env.NOW }}"
+      #   with:
+      #     #body_path: ${{ github.workspace }}-CHANGELOG.txt
+      #     body: test release process
+      #     draft: true
+      #     prerelease: true
+      #     tag_name: 
+      #     #repository: # optional
+      #     generate_release_notes: true
       # get output for git ref
       # - name: Login to Heroku
       #   run: heroku login 
