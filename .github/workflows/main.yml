@@ -1,4 +1,5 @@
-# This is a basic workflow to help you get started with Actions
+# This workflow will cut a release candidate and deploy to heroku (in progress) based on cron settings.
+
 
 name: CI
 
@@ -21,7 +22,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           ref: 'main'
-      - name: Create tag
+      - name: Create Release Candidate
         uses: actions/github-script@v6
         with:
           script: |
@@ -50,7 +51,9 @@ jobs:
               body: releaseNotesResponse.data.body,
               draft: true
             });       
-          
+      - name: Deploy Release Candidate
+          #run: heroku login
+          run: git push -f https://git.heroku.com/murmuring-lake-14134.git tag:master
           
       # get output for git ref
       # - name: Login to Heroku
