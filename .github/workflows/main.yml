@@ -33,6 +33,13 @@ jobs:
               object: context.sha,
               type: 'commit',
             })
+            console.log(tagResult);
+            github.rest.git.createRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: 'refs/tags/RC-${{ env.NOW }}',
+              sha: tagResult.data.sha
+            });
         
       - name: Create Release Candidate
         uses: softprops/action-gh-release@v0.1.14
