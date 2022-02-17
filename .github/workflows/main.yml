@@ -12,12 +12,12 @@ on:
 
 jobs:
   build:
-    env:
-      NOW: $(date +'%Y.%m.%d.%H%M%S')
     # env: 
     #   HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
     runs-on: ubuntu-latest
     steps:
+      - name: Set ENV
+        run: echo "NOW=$(date +'%Y.%m.%d.%H%M%S')" >> $GITHUB_ENV
       - name: Checkout
         uses: actions/checkout@v2
         with:
