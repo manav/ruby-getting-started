@@ -19,7 +19,7 @@ jobs:
       - name: set env
         run: |
           echo "NOW=$(date +'%Y.%m.%d.%H%M%S')" >> $GITHUB_ENV
-          echo "TAG_NAME=RC-$env.NOW" >> $GITHUB_ENV
+          echo "TAG_NAME=RC-$NOW" >> $GITHUB_ENV
 
       - name: Checkout
         uses: actions/checkout@v2
