@@ -19,13 +19,13 @@ jobs:
         uses: actions/checkout@v2
       - name: Create Release Candidate
         uses: softprops/action-gh-release@v0.1.14
-        with:
-          #body_path: ${{ github.workspace }}-CHANGELOG.txt
-          body: test release process
-          draft: true
-          prerelease: true
-          #repository: # optional
-          generate_release_notes: true
+        # with:
+        #   #body_path: ${{ github.workspace }}-CHANGELOG.txt
+        #   body: test release process
+        #   draft: true
+        #   prerelease: true
+        #   #repository: # optional
+        #   generate_release_notes: true
       # get output for git ref
       # - name: Login to Heroku
       #   run: heroku login 
