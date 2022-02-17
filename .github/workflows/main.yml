@@ -12,15 +12,13 @@ on:
 
 jobs:
   build:
+    env:
+      NOW: $(date +'%Y.%m.%d.%H%M%S')
+      TAG_NAME: RC-$NOW"
     # env: 
     #   HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
     runs-on: ubuntu-latest
     steps:
-      - name: set env
-          env: |
-            NOW: $(date +'%Y.%m.%d.%H%M%S')
-            TAG_NAME: RC-$NOW"
-
       - name: Checkout
         uses: actions/checkout@v2
         with:
