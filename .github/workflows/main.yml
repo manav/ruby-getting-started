@@ -34,12 +34,12 @@ jobs:
               object: context.sha,
               type: "commit"
             })
-            await github.rest.repos.createRef({
+            await github.rest.git.createRef({
               ...context.repo,
               ref: `refs/tags/${tag}`,
               sha: createTagResponse.data.sha
             })
-            const releaseNotesResponse = await github.rest.git.generateReleaseNotes({
+            const releaseNotesResponse = await github.rest.repos.generateReleaseNotes({
               ...context.repo,
               tag_name: tag
             })
