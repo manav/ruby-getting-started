@@ -26,7 +26,7 @@ jobs:
         with:
           script: |
             const tag = "RC-${{ env.NOW }}";
-            const message = `version ${tag}`;
+            const message = `Bot - ${tag}`;
             const createTagResponse = await github.rest.git.createTag({
               ...context.repo,
               tag: tag,
@@ -38,45 +38,23 @@ jobs:
               ...context.repo,
               ref: `refs/tags/${tag}`,
               sha: createTagResponse.data.sha
-            });        
-      - name: Create Release Candidate
-        uses: softprops/action-gh-release@v0.1.14
-        with:
-          #body_path: ${{ github.workspace }}-CHANGELOG.txt
-          body: test release process
-          draft: true
-          prerelease: true
-          tag_name: RC-${{ env.NOW }}
-          #repository: # optional
-          generate_release_notes: true
+            })
+            const releaseNotesResponse = await github.rest.git.generateReleaseNotes({
+              ...context.repo,
+              tag_name: tag
+            })
+            await github.rest.repos.createRelease({
+              ...context.repo,
+              tag_name: tag,
+              name: 'Scheduled ' + tag,
+              body: releaseNotesResponse.body,
+              draft: true,
+              generate_release_notes: true
+            });       
+          
+          
       # get output for git ref
       # - name: Login to Heroku
       #   run: heroku login 
       # - name: Push to Heroku Remote
       #   run: git push -f https://heroku:${{ secrets.HEROKU_API_KEY }}@git.heroku.com/trada-dev1.git origin/master:master
-
-        
-      # await github.rest.repos.createRelease({
-      #   owner: context.repo.owner,
-      #   tag_name: env.VERSION_NAME,
-      #   name: env.VERSION_NAME,
-      #   generate_release_notes: true
-      # });
-
-      # github.rest.git.createRef({
-      #   owner: context.repo.owner,
-      #   repo: context.repo.repo,
-      #   ref: 'refs/tags/RC-${{ env.NOW }}',
-      #   sha: context.sha
-      # })
-      # tagger: {
-      #           name: "Eritque arcus",
-      #            email: "1930893235@qq.com"
-      #          }
-
-            #       await github.rest.repos.createRelease({
-            #   ...context.repo,
-            #   tag_name: tag,
-            #   name: 'Version ' + tag,
-            #   generate_release_notes: true
-            # })
