@@ -31,18 +31,16 @@ jobs:
               ref: 'refs/tags/RC-${{ env.NOW }}',
               sha: context.sha
             })          
-      # - name: Create Release Candidate
-      #   uses: softprops/action-gh-release@v0.1.14
-
-      #   automatic_release_tag: "${{ env.NOW }}"
-      #   with:
-      #     #body_path: ${{ github.workspace }}-CHANGELOG.txt
-      #     body: test release process
-      #     draft: true
-      #     prerelease: true
-      #     tag_name: 
-      #     #repository: # optional
-      #     generate_release_notes: true
+      - name: Create Release Candidate
+        uses: softprops/action-gh-release@v0.1.14
+        with:
+          #body_path: ${{ github.workspace }}-CHANGELOG.txt
+          body: test release process
+          draft: true
+          prerelease: true
+          tag_name: RC-${{ env.NOW }}
+          #repository: # optional
+          generate_release_notes: true
       # get output for git ref
       # - name: Login to Heroku
       #   run: heroku login 
