@@ -28,7 +28,7 @@ jobs:
             tagResult = github.rest.git.createTag({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              tag: RC-${{ env.NOW }},
+              tag: 'RC-${{ env.NOW }}',
               message: 'RC',
               object: context.sha,
               type: 'commit',
